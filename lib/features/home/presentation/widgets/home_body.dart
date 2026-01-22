@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:grocesry_app/core/app_colors.dart';
+import 'package:grocesry_app/core/app_images.dart';
+import 'package:grocesry_app/core/app_styles.dart';
+import 'package:grocesry_app/core/widgets/custom_text_feild.dart';
+import 'package:grocesry_app/features/home/presentation/widgets/custom_product_list.dart';
+import 'package:grocesry_app/features/home/presentation/widgets/head_title.dart';
+
+class HomeBody extends StatelessWidget {
+  const HomeBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
+    return Padding(
+      padding: const EdgeInsets.only(top: 50, left: 16, right: 16),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(AppImages.logo, height: 30, width: 30),
+            SizedBox(height: 10),
+            Text("Alex,Sidi Basher", style: AppStyles.bodyLarge),
+            SizedBox(height: 10),
+            CustomTextFeild(
+              controller: searchController,
+              hintText: "Search",
+              fillColor: AppColors.border,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            SizedBox(height: 10),
+            Image.asset(AppImages.banner),
+            HeadTitle(title: "Exclusive Offers", onPressed: () {}),
+            CustomProductList(),
+            HeadTitle(title: "Best Selling", onPressed: () {}),
+            CustomProductList(),
+            HeadTitle(title: "Best Selling", onPressed: () {}),
+            CustomProductList(),
+          ],
+        ),
+      ),
+    );
+  }
+}
