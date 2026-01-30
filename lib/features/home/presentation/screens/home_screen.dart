@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocesry_app/core/app_colors.dart';
 import 'package:grocesry_app/features/auth/presentation/screens/profile_screen.dart';
+import 'package:grocesry_app/features/cart/presentation/screens/cart_screen.dart';
 import 'package:grocesry_app/features/home/presentation/widgets/home_body.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     HomeBody(),
     Center(child: Text("Explore Screen")),
-    Center(child: Text("Cart Screen")),
+    CartScreen(),
     Center(child: Text("Favorite Screen")),
     ProfileScreen(),
   ];

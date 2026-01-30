@@ -6,6 +6,8 @@ import 'package:grocesry_app/features/auth/cubit/app_auth/app_auth_cubit.dart';
 import 'package:grocesry_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../home/presentation/screens/add_product_screen.dart';
+
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   final user = Supabase.instance.client.auth.currentUser;
@@ -39,7 +41,22 @@ class ProfileScreen extends StatelessWidget {
                   user?.email ?? "Email@gmail.com",
                   style: AppStyles.bodyMedium,
                 ),
+
                 Spacer(),
+                CustomButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AddProductScreen();
+                        },
+                      ),
+                    );
+                  },
+                  text: "Add Product",
+                ),
+                SizedBox(height: 30),
                 state is AppAuthLoading
                     ? Center(child: CircularProgressIndicator())
                     : CustomButton(

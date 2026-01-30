@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocesry_app/features/cart/cubit/cart_cubit.dart';
+import 'package:grocesry_app/features/home/data/models/product_model.dart';
 
 import '../../../../core/app_colors.dart';
-import '../../../../core/app_images.dart';
 import '../../../../core/app_styles.dart';
 
 class CustomProductCard extends StatelessWidget {
-  const CustomProductCard({super.key});
+  final ProductModel productModel;
+  const CustomProductCard({super.key, required this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -22,27 +25,47 @@ class CustomProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(child: Image.asset(AppImages.apple)),
+            Center(
+              child: Image.network(productModel.image, height: 80, width: 80),
+            ),
             SizedBox(height: 10),
             Text(
-              "Red Apple",
+              productModel.name,
               style: AppStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
-            Text("7pcs, Priceg", style: AppStyles.bodyMedium),
+            Text(
+              "${productModel.quantity} ${productModel.size}",
+              style: AppStyles.bodyMedium,
+            ),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Text("\$4.99", style: AppStyles.bodyLarge),
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(8),
+                Expanded(
+                  child: Text(
+                    "${productModel.price}/per ${productModel.size}",
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: AppStyles.bodyLarge,
                   ),
-                  child: Icon(Icons.add, color: Colors.white),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<CartCubit>(
+                      context,
+                    ).addToCart(productModel.id);
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.add, color: Colors.white),
+                  ),
                 ),
               ],
             ),
